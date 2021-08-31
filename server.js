@@ -8,11 +8,29 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
+const students = [];
+
 const app = express();
+
+app.use(rollbar.errorHandler); //every time we use app it will run middle ware
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
   rollbar.info("html file served successfully.");
+});
+
+app.post("/api/student", (req, res) => {
+  const { name } = req.body;
+  name = name.trim(); //trim whitespace
+
+  students.push(name);
+
+  rollbar.log("Student add successfully", {
+    author: "Sherena",
+
+    type: "manual entry",
+  });
+  res.status(200).send(students);
 });
 
 const port = process.env.PORT || 4545;
