@@ -12,8 +12,6 @@ const students = [];
 
 const app = express();
 
-app.use(rollbar.errorHandler); //every time we use app it will run middle ware
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
   rollbar.info("html file served successfully.");
@@ -27,7 +25,6 @@ app.post("/api/student", (req, res) => {
 
   rollbar.log("Student add successfully", {
     author: "Sherena",
-
     type: "manual entry",
   });
   res.status(200).send(students);
@@ -35,4 +32,5 @@ app.post("/api/student", (req, res) => {
 
 const port = process.env.PORT || 4545;
 
+app.use(rollbar.errorHandler()); //every time we use app it will run middle ware
 app.listen(port, () => console.log("take us to warp ${port}!"));
