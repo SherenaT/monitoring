@@ -1,8 +1,9 @@
 const express = require("express");
 const path = require("path"); //variable we use to tell the deployment were going to use where we are at
+
 const Rollbar = require("rollbar");
 const rollbar = new Rollbar({
-  accessToken: "4233ac1ab91c4319b588ebf63e0c7140",
+  accessToken: "dd7f418cfe194e95b84541d79bce2111",
   captureUncaught: true,
   captureUnhandledRejections: true,
 });
